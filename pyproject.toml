@@ -29,7 +29,7 @@ coverage = "^7.2.3"
 pytest-cov = "^4.0.0"
 
 [[tool.mypy.overrides]]
-module = "pgpy"
+module = ["pgpy", "requests"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
