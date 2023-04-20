@@ -1,0 +1,59 @@
+name: tools
+
+on:
+  push:
+    branches:
+      -main
+      -dev
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout_repository
+        uses: actions/checkout@v3
+
+      - name: setup_python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: install_poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: load_cached_venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: install_dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      - name: install_project
+        run: poetry install --no-interaction
+
+      - name: run_pytest
+        run: |
+          source .venv/bin/activate
+          pytest tests/ --cov=./yopass_api --cov-report=xml tests/
+          coverage report
+
+      - name: upload_coverage
+        uses: codecov/codecov-action@v3
+
+      - name: run_mypy
+        run: |
+          poetry run mypy .
+
+      - name: run_black
+        run: |
+          poetry run black .

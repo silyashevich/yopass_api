@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "yopass-api"
+version = "0.0.8"
+description = "This module will allow you to use Python and Yopass in automation projects"
+license = "MIT"
+authors = ["Sergey Ilyashevich <silyashevich@gmail.com>"]
+maintainers = ["Sergey Ilyashevich <silyashevich@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/silyashevich/yopass_api"
+repository = "https://github.com/silyashevich/yopass_api"
+keywords = ["api", "cryptography", "yopass"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Security :: Cryptography"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pgpy = "^0.6.0"
+requests = "^2.28.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.3.1"
+black = "^23.3.0"
+mypy = "^1.2.0"
+coverage = "^7.2.3"
+pytest-cov = "^4.0.0"
+
+[[tool.mypy.overrides]]
+module = "pgpy"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+filterwarnings = "ignore::DeprecationWarning:"
+
+[tool.mypy-requests]
+ignore_missing_imports = true
