@@ -1,7 +1,6 @@
 # yopass_api
 
 [![codecov](https://codecov.io/github/silyashevich/yopass_api/branch/main/graph/badge.svg?token=YDY235VL6Q)](https://codecov.io/github/silyashevich/yopass_api)
-![actions - tests](https://github.com/silyashevich/yopass_api/actions/workflows/tests.yml/badge.svg?branch=main)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/yopass_api)
 
 This is a module to work with a (the) [Yopass](https://github.com/jhaals/yopass) backend created by [Johan Haals](https://github.com/jhaals).
